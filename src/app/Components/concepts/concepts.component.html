@@ -1,0 +1,140 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="databinding-tab" data-toggle="tab" href="#databinding" role="tab"
+      aria-controls="databinding" aria-selected="true">Data Binding</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="twowaybinding-tab" data-toggle="tab" href="#twowaybinding" role="tab"
+      aria-controls="twowaybinding" aria-selected="false">Two way Binding</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="eventbinding-tab" data-toggle="tab" href="#eventbinding" role="tab"
+      aria-controls="eventbinding" aria-selected="false">Event Binding</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="cpb-tab" data-toggle="tab" href="#cpb" role="tab" aria-controls="cpb"
+      aria-selected="false">Custom Property Binding</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="cvb-tab" data-toggle="tab" href="#ceb" role="tab" aria-controls="ceb"
+      aria-selected="false">Custom Event Binding</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="directives-tab" data-toggle="tab" href="#directives" role="tab" aria-controls="directives" aria-selected="false">Directives</a>
+</li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="databinding" role="tabpanel" aria-labelledby="databinding-tab">
+    <h1>Data Binding</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>String Interpolation</h2>
+        <p>{{ appName }}</p>
+        <p>{{ appAge }}</p>
+        <p>{{ appIsLoggedIn }}</p>
+        <p> <b>Single Array :</b> {{ skillsList[0] }}</p>
+        <p> <b>Single Array :</b> {{ skillsList2[0] }}</p>
+        <!-- i is for number of the index like 0,1,2
+      item is for list for array -->
+        <p><b><u>Multiple Array</u></b></p>
+        <p *ngFor="let item of skillsList; let i = index">
+          {{i}} - {{item}}
+        </p>
+        <p><b>Text Box String Interpolation</b></p>
+        <input type="text" value="{{ appName }}" />
+      </div>
+      <div class="col-sm-6">
+        <h2>Property Binding</h2>
+        <div><b><u>Using Property Binding for Default Property</u></b></div>
+        <p [title]="devName"> Mouse Hover Property Binded value will appear</p>
+        <input type="text" [value]="devName" /> checked for two way binding not worked
+        <input type="text" [value]="devName" />
+        <div><b><u>Using Property Binding for Angular Property</u></b></div>
+        <div class="greenText"> Normal Class Property for CSS Style</div>
+        <div [ngClass]="{'greenText':true}"> ngClass Property CSS Style Two ways <br>
+          1. For ngClass value should be declared in TS file with Same Css Class Name (Bad Practice) <br>
+          2. For ngClass can use ngClass 'greenText':true to apply CSS Style</div>
+        <div>For ngClass can use ngClass 'greenText':isAuthenticated() method and can add other style like text-center
+          to apply CSS Style. See Below example</div>
+        <div [ngClass]="{'greenText text-center':isAuthenticated()}">TEST</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="twowaybinding" role="tabpanel" aria-labelledby="twowaybinding-tab">
+    <h2>Two way Binding</h2>
+    <p> {{ courseName }} </p>
+    <input type="text" placeholder="type anything for 2 way binding" [(ngModel)]="courseName" />
+  </div>
+  <div class="tab-pane fade" id="eventbinding" role="tabpanel" aria-labelledby="eventbinding-tab">
+    <h2>Event Binding</h2>
+    <button (onClick)="onBtnClick()">onClick method will not work as such JS function in window scope</button>
+    <button (click)="onBtnClick()">Click Me</button>
+    <button (click)="onBtnClickMouseEvent($event)">Click Me Mouse Event check in console</button>
+  </div>
+  <div class="tab-pane fade" id="cpb" role="tabpanel" aria-labelledby="cpb-tab">
+    <h2>Custom Property Binding</h2>
+    <app-cpb>Default Property nothing from Parent</app-cpb>
+    <app-cpb [age]=25>Property age and value comes from Parent to child</app-cpb>
+    <app-cpb [age]="myAgeIs">Property age and Variable from TS value comes from Parent to child</app-cpb>
+    <app-cpb [age]="myAgeMethod()">Property age and Method from TS return value comes from Parent to child</app-cpb>
+  </div>
+  <div class="tab-pane fade" id="directives" role="tabpanel" aria-labelledby="directives-tab">
+    directives
+    <div>
+      <p>1. Attribute Directives
+          <br> ngClass, ngStyle, routerLink, routerLinkActive </p>
+      <p>2. Structural Directives directives that impacts the structure (html) of the page.
+          <br>*ngIf, *ngFor, ngSwitch </p>
+
+      <div>
+          <h2>*ngIf, else</h2>
+          <div class="alert alert-success" *ngIf="isAuth; else notAuthBox">
+              <p>Thanks for logging in..</p>
+          </div>
+
+          <ng-template #notAuthBox>
+              <div class="alert alert-danger">
+                  <p>Pls login.. You seem to be not authenticated</p>
+              </div>
+          </ng-template>
+      </div>
+
+      <div>
+        <h2>*ngIf</h2>
+        <div class="alert alert-success" *ngIf="isAuth">
+            <p>Thanks for logging in..</p>
+        </div>
+
+            <div class="alert alert-danger" *ngIf="!isAuth">
+                <p>Pls login.. You seem to be not authenticated</p>
+            </div>
+            <!--Find Index-->
+            <!--Switch-->
+    </div>
+
+    <ul>
+    <li *ngFor="let item of courseList">{{item}}</li>
+</ul>
+
+      <p>3. Custom Attribute Directives </p>
+      <p>4. Custom Structural Directives </p>
+  </div>
+
+
+</div>
+  <div class="tab-pane fade" id="ceb" role="tabpanel" aria-labelledby="ceb-tab">
+    <h2>Custom Event Binding</h2>
+    <app-ceb>Default Tag---"app-ceb & /app-ceb"</app-ceb> <br />
+    <!-- Step 3 : attach the event handler -->
+    <app-ceb #testViewChild (onProfileLoaded)="profileLoadedHandler($event)">
+      Passing Custom Event Binding using (onProfileLoaded)="profileLoadedHandler($event)"
+      <div><b><u>Data received from CEB component on Load</u></b></div>
+      <p>{{ profileData?.name }}</p>
+      <p>{{ profileData?.age }}</p>
+      <div><b><u>Data received from CEB component On Click</u></b></div>
+      <!-- ? is for if profile data is avaiable then it will show the data (?-optional) -->
+      <p>{{ profileData?.name }}</p>
+      <p>{{ profileData?.age }}</p>
+    </app-ceb>
+  </div>
+</div>
